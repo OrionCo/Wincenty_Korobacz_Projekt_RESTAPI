@@ -15,6 +15,7 @@ export class ApiInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     req = this._setURL(req);
+    req = this._setContentType(req);
     return next.handle(req);
   }
 
@@ -22,6 +23,18 @@ export class ApiInterceptor implements HttpInterceptor {
     if (!request.url.startsWith('http')) {
       request = request.clone({
         url: `${environment.apiUrl}/${request.url}`,
+      });
+    }
+
+    return request;
+  }
+
+  private _setContentType(request: HttpRequest<any>): HttpRequest<any> {
+    if (!request.headers.get('Content-Type')) {
+      request = request.clone({
+        setHeaders: {
+          'Content-Type': 'application/json',
+        },
       });
     }
 

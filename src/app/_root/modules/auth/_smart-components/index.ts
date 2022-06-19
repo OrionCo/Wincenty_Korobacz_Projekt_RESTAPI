@@ -1,1 +1,3 @@
-export const AUTH_SMARTS: any[] = [];
+import { LoginComponent } from './login/login.component';
+
+export const AUTH_SMARTS: any[] = [LoginComponent];

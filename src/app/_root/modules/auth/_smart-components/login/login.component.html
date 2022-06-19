@@ -1,0 +1,25 @@
+<form
+  *ngIf="formGroup"
+  [formGroup]="formGroup"
+  (submit)="onSubmit()"
+  class="form"
+>
+
+  <app-control-input
+    [formControl]="getControl('email')"
+    type="email"
+    placeholder="E-mail"
+  ></app-control-input>
+
+  <app-control-input
+    [formControl]="getControl('password')"
+    type="password"
+    placeholder="Hasło"
+  ></app-control-input>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+  >Zaloguj</button>
+</form>
