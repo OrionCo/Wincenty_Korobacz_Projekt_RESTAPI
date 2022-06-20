@@ -7,6 +7,14 @@ const router = express.Router();
 router.post("/signup", async (req, res) => {
   const body = req.body;
 
+  let user = await User.findOne({ email: body.email });
+
+  if (user) {
+    return res
+      .status(400)
+      .send({ message: "Użytkownik o takim adresie e-mail już istnieje" });
+  }
+
   if (!(body.email && body.password)) {
     return res
       .status(400)
@@ -18,7 +26,7 @@ router.post("/signup", async (req, res) => {
   }
 
   // creating a new mongoose doc from user data
-  const user = new User(body);
+  user = new User(body);
   // generate salt to hash password
   const salt = await bcrypt.genSalt(10);
   // now we set user password to hashed password
