@@ -1,0 +1,52 @@
+@import "/src/assets/helpers/consts";
+
+.menu {
+  width: 100%;
+  font-size: 18px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: map-get($colors, white);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0px 10px 18px 0px map-get($colors, mediumbg);
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 30px 40px;
+    max-width: 1346px;
+    margin: 0 auto;
+  }
+
+  &__links {
+    display: flex;
+    gap: 20px;
+  }
+
+  .link,
+  .link:hover,
+  .link:active,
+  .link:visited {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: map-get($colors, $key: white);
+    background-color: map-get($colors, primary);
+    padding: 15px 20px;
+    border-radius: 5px;
+  }
+}
+
+.logout-btn {
+  font-size: 18px;
+  padding: 10px 20px;
+
+  ::ng-deep .mat-button-wrapper {
+    display: flex;
+    gap: 15px;
+  }
+}

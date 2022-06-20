@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 import { AuthModel } from 'src/models/auth.model';
+import { CookiesService } from './cookies.service';
 
 @Injectable()
 export class AuthService {
@@ -14,8 +15,18 @@ export class AuthService {
   constructor(
     private readonly _router: Router,
     private readonly _http: HttpClient,
-    private readonly _snackbar: MatSnackBar
-  ) {}
+    private readonly _snackbar: MatSnackBar,
+    private readonly _cookieService: CookiesService
+  ) {
+    let loggedIn = this._cookieService.get('loggedIn');
+    if (loggedIn === 'true') {
+      this._loggedInSubject.next(true);
+    } else {
+      this._loggedInSubject.next(false);
+    }
+  }
+
+  // TODO: JWT auth
 
   logIn(data: AuthModel.LoginRequest): void {
     this._http
@@ -24,6 +35,7 @@ export class AuthService {
       .subscribe({
         next: () => {
           this._loggedInSubject.next(true);
+          this._cookieService.set('loggedIn', 'true');
           this._router.navigate(['/dashboard']);
           this._snackbar.open('Pomyślnie zalogowano.', '', {
             duration: 3000,
@@ -42,6 +54,7 @@ export class AuthService {
 
   logOut(): void {
     this._loggedInSubject.next(false);
+    this._cookieService.set('loggedIn', 'false');
     this._router.navigate(['/auth']);
   }
 }

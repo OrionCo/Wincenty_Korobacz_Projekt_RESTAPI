@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/_core/services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent extends AbstractFormComponent {
+  readonly: boolean = true;
   constructor(
     private readonly _http: HttpClient,
     private readonly _authService: AuthService,

@@ -1,17 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  forwardRef,
-  Input,
-} from '@angular/core';
-import {
-  AbstractControl,
-  ControlValueAccessor,
-  FormControl,
-  NG_VALUE_ACCESSOR,
-  ValidationErrors,
-} from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractControlComponent } from 'src/app/_core/components/forms/abstract-control.component';
 
 @Component({

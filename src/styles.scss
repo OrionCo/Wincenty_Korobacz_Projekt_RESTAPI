@@ -1,7 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import '/src/assets/helpers/consts';
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: map-get($colors, lightbg);
+  position: relative;
+}
 
 .mat-success {
   background-color: map-get($colors, success-green);

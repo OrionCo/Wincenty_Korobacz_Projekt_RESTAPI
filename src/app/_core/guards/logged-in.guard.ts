@@ -5,11 +5,11 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { Observable, take, map, catchError, of } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class LoggedInGuard implements CanActivate {
   constructor(
     private readonly _authService: AuthService,
     private readonly _router: Router
@@ -23,15 +23,11 @@ export class AuthGuard implements CanActivate {
       take(1),
       map((loggedIn: boolean) => {
         if (loggedIn) {
-          return true;
-        } else {
-          this._router.navigate(['/auth']);
+          this._router.navigate(['/dashboard']);
           return false;
         }
-      }),
-      catchError(() => {
-        this._router.navigate(['/auth']);
-        return of(false);
+
+        return true;
       })
     );
   }

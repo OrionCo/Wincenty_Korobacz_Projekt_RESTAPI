@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../_core/guards/auth.guard';
+import { LoggedInGuard } from '../_core/guards/logged-in.guard';
 import { NotFoundComponent } from './components/_dumb-components/not-found/not-found.component';
 
 const routes: Routes = [
   {
     path: 'auth',
     pathMatch: 'prefix',
+    canActivate: [LoggedInGuard],
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
@@ -33,7 +35,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'auth',
+    redirectTo: 'dashboard',
   },
   {
     path: '**',
