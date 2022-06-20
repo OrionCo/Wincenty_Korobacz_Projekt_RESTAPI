@@ -1,0 +1,14 @@
+@import '/src/assets/helpers/mixins/auth-form.scss';
+
+@include authForm();
+
+.password__group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .form__error {
+    position: absolute;
+    bottom: -5px;
+  }
+}

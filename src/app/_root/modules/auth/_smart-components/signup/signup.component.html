@@ -4,7 +4,8 @@
   (submit)="onSubmit()"
   class="form"
 >
-  <h2>Zaloguj się</h2>
+
+  <h2>Zarejestruj się</h2>
 
   <app-control-input
     [formControl]="getControl('email')"
@@ -18,19 +19,37 @@
     type="password"
     placeholder="Hasło"
     class="form__control"
+    (input)="comparePasswords()"
   ></app-control-input>
+
+  <div class="password__group">
+    <app-control-input
+      [formControl]="getControl('confirm_password')"
+      type="password"
+      placeholder="Potwierdź hasło"
+      class="form__control"
+      (input)="comparePasswords()"
+    ></app-control-input>
+
+    <span
+      class="form__error"
+      *ngIf="passwordsMismatch"
+    >Hasła nie zgadzają się</span>
+  </div>
+
 
   <button
     mat-raised-button
     color="primary"
     type="submit"
     class="form__button"
-  >Zaloguj</button>
+  >Zarejestruj</button>
 
   <div class="form__bottom">
     <hr class="separator" />
 
-    <p>Nie masz konta?</p>
-    <a [routerLink]="['../signup']">Zarejestruj się</a>
+    <p>Masz już konto?</p>
+    <a [routerLink]="['../login']">Zaloguj się</a>
   </div>
+
 </form>

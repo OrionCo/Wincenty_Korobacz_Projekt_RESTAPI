@@ -43,7 +43,6 @@ export class AuthService {
           });
         },
         error: (err) => {
-          console.log(err);
           this._snackbar.open(err.error.message, '', {
             duration: 3000,
             panelClass: ['mat-toolbar', 'mat-warn'],
@@ -56,5 +55,34 @@ export class AuthService {
     this._loggedInSubject.next(false);
     this._cookieService.set('loggedIn', 'false');
     this._router.navigate(['/auth']);
+    this._snackbar.open('Pomyślnie wylogowano.', '', {
+      duration: 3000,
+      panelClass: ['mat-toolbar', 'mat-success'],
+    });
+  }
+
+  register(data: AuthModel.RegisterRequest): void {
+    this._http
+      .post<AuthModel.RegisterRequest>('auth/signup', data)
+      .pipe(take(1))
+      .subscribe({
+        next: () => {
+          this._router.navigate(['/']);
+          this._snackbar.open(
+            'Rejestracja przebiegła pomyślnie. Możesz się zalogować',
+            '',
+            {
+              duration: 3000,
+              panelClass: ['mat-toolbar', 'mat-success'],
+            }
+          );
+        },
+        error: (err) => {
+          this._snackbar.open(`${err.error.message}`, '', {
+            duration: 3000,
+            panelClass: ['mat-toolbar', 'mat-warn'],
+          });
+        },
+      });
   }
 }

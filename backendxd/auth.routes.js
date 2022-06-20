@@ -8,7 +8,13 @@ router.post("/signup", async (req, res) => {
   const body = req.body;
 
   if (!(body.email && body.password)) {
-    return res.status(400).send({ error: "Data not formatted properly" });
+    return res
+      .status(400)
+      .send({ message: "Nie wprowadzono wymaganych danych" });
+  }
+
+  if (body.password !== body.confirm_password) {
+    return res.status(400).send({ message: "Podane hasła nie zgadzają się" });
   }
 
   // creating a new mongoose doc from user data
@@ -29,12 +35,12 @@ router.post("/login", async (req, res) => {
     const validPassword = await bcrypt.compare(body.password, user.password);
     if (validPassword) {
       res.header("Access-Control-Allow-Origin");
-      res.status(200).json({ message: "Valid password" });
+      res.status(200).json({ message: "Hasło poprawne." });
     } else {
-      res.status(401).json({ message: "Invalid Password" });
+      res.status(401).json({ message: "Hasło niepoprawne." });
     }
   } else {
-    res.status(401).json({ message: "User does not exist" });
+    res.status(401).json({ message: "Użytkownik nie istnieje." });
   }
 });
 

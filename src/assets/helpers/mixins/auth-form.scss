@@ -1,0 +1,40 @@
+@import "/src/assets/helpers/consts";
+@import "/src/assets/helpers/mixins/div-shadow.scss";
+
+@mixin authForm() {
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min-content;
+    padding: 40px;
+    margin: 50px auto;
+    @include divShadow;
+
+    &__control {
+      width: 250px;
+    }
+
+    &__error {
+      color: map-get($colors, warn);
+    }
+
+    &__bottom {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__button {
+      margin-top: 15px;
+    }
+  }
+
+  .separator {
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid map-get($colors, mediumbg);
+    margin: 30px 0;
+  }
+}

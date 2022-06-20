@@ -1,0 +1,5 @@
+@mixin divShadow() {
+  background-color: map-get($colors, white);
+  box-shadow: 0px 10px 18px 0px map-get($colors, mediumbg);
+  border-radius: 10px;
+}
