@@ -27,7 +27,7 @@ export class AuthService {
           this._router.navigate(['/dashboard']);
           this._snackbar.open('Pomyślnie zalogowano.', '', {
             duration: 3000,
-            panelClass: ['mat-toolbar'],
+            panelClass: ['mat-toolbar', 'mat-success'],
           });
         },
         error: (err) => {
