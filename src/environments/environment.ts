@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'http://127.0.0.1:3000',
+  dbUri:
+    'DB_URI="mongodb+srv://root:<PASSWORD>@cdvwincentykorobacz.nhajz9f.mongodb.net/db?retryWrites=true&w=majority"',
 };
 
 /*
