@@ -14,7 +14,6 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.loggedIn$ = this._authService.loggedIn$;
-    this.loggedIn$.subscribe((e) => console.log(e));
   }
 
   onLogout(): void {

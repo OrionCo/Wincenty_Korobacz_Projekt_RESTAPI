@@ -3,43 +3,49 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../_core/guards/auth.guard';
 import { LoggedInGuard } from '../_core/guards/logged-in.guard';
 import { NotFoundComponent } from './components/_dumb-components/not-found/not-found.component';
+import { ContainerComponent } from './components/_smart-components/container/container.component';
 
 const routes: Routes = [
   {
     path: 'auth',
-    pathMatch: 'prefix',
     canActivate: [LoggedInGuard],
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'dashboard',
-    pathMatch: 'full',
+    path: '',
+    component: ContainerComponent,
     canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./modules/dashboard/dashboard.module').then(
-        (m) => m.DashboardModule
-      ),
-  },
-  {
-    path: 'user',
-    pathMatch: 'full',
-    loadChildren: () =>
-      import('./modules/user/user.module').then((m) => m.UserModule),
-  },
-  {
-    path: 'not-found',
-    pathMatch: 'full',
-    component: NotFoundComponent,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+      {
+        path: 'dashboard',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./modules/dashboard/dashboard.module').then(
+            (m) => m.DashboardModule
+          ),
+      },
+      {
+        path: 'user',
+        loadChildren: () =>
+          import('./modules/user/user.module').then((m) => m.UserModule),
+      },
+      {
+        path: 'not-found',
+        pathMatch: 'full',
+        component: NotFoundComponent,
+      },
+      {
+        path: '**',
+        redirectTo: 'not-found',
+      },
+    ],
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'dashboard',
-  },
-  {
-    path: '**',
-    redirectTo: 'not-found',
+    redirectTo: '/auth',
   },
 ];
 

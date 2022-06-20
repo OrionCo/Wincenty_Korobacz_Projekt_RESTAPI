@@ -36,7 +36,7 @@ export class AuthService {
         next: () => {
           this._loggedInSubject.next(true);
           this._cookieService.set('loggedIn', 'true');
-          this._router.navigate(['/dashboard']);
+          this._router.navigate(['/']);
           this._snackbar.open('Pomyślnie zalogowano.', '', {
             duration: 3000,
             panelClass: ['mat-toolbar', 'mat-success'],
