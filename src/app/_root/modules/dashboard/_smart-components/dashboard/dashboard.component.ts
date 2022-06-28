@@ -40,7 +40,6 @@ export class DashboardComponent {
         this.average_score += result.score / result.max_score;
       });
       this.average_score /= this._data.length;
-      console.log(this.average_score);
       this._cdr.markForCheck();
     });
   }

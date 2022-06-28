@@ -5,8 +5,10 @@
   <mat-radio-group
     (change)="getTest($event.value)"
     formControlName="category"
+    class="category__select"
   >
     <div class="container">
+      <h1 class="container__title">Wybór kategorii testu:</h1>
       <ng-container *ngFor="let category of categories">
         <mat-radio-button [value]="category.value">{{ category.name }}</mat-radio-button>
       </ng-container>
@@ -20,7 +22,8 @@
       *ngFor="let question of getFormArray('questions').controls; let i = index"
     >
       <ng-container [formGroupName]="i">
-        <h3>{{ question.value.name }}</h3>
+        <h3 class="question__name"><span class="question__name--number">{{ i + 1 }}</span>{{ '. ' + question.value.name
+          }}</h3>
 
         <mat-radio-group formControlName="answers">
           <mat-radio-button
@@ -35,6 +38,6 @@
       type="submit"
       mat-raised-button
       color="primary"
-    >Submit</button>
+    >Zapisz odpowiedzi</button>
   </ng-container>
 </form>
