@@ -1,1 +1,91 @@
-dashboard
+<h1
+  class="user-data"
+  *ngIf="user$ | async as user"
+>
+  <i class="ri-home-heart-line"></i>
+  Witaj ponownie,
+  <span class="user-data__username">{{ user.email }}</span>!
+</h1>
+<div
+  class="content__average"
+  *ngIf="data$ | async"
+>
+  <app-progress-circle [progress]="average_score"></app-progress-circle>
+  <span class="content__average__score">{{ average_score | percent }}</span>
+  <!-- <span class="content__average__title">
+    <i class="ri-line-chart-fill"></i>
+    Średni wynik
+  </span> -->
+  <!-- <span class="content__average__title">
+    <i class="ri-bar-chart-fill"></i>
+    Średni wynik
+  </span> -->
+  <!-- <span class="content__average__title">
+    <i class="ri-bar-chart-2-line"></i>
+    Średni wynik
+  </span> -->
+  <!-- <span class="content__average__title">
+    <i class="ri-bar-chart-grouped-line"></i>
+    Średni wynik
+  </span> -->
+  <!-- <span class="content__average__title">
+    <i class="ri-pie-chart-2-fill"></i>
+    Średni wynik
+  </span> -->
+  <span class="content__average__title">
+    <i class="ri-dashboard-2-line"></i>
+    Średni wynik
+  </span>
+  <!-- <span class="content__average__title">
+    <i class="ri-dashboard-3-line"></i>
+    Średni wynik
+  </span> -->
+  <!-- <span class="content__average__title">
+    <i class="ri-dashboard-2-fill"></i>
+    Średni wynik
+  </span> -->
+  <!-- <span class="content__average__title">
+    <i class="ri-dashboard-3-fill"></i>
+    Średni wynik
+  </span> -->
+  <!-- <span class="content__average__title">
+    <i class="ri-numbers-fill"></i>
+    Średni wynik
+  </span> -->
+  <!-- <span class="content__average__title">
+    <i class="ri-numbers-line"></i>
+    Średni wynik
+  </span> -->
+  <!-- <span class="content__average__title">
+    <i class="ri-percent-fill"></i>
+    Średni wynik
+  </span> -->
+  <!-- <span class="content__average__title">
+    <i class="ri-funds-line"></i>
+    Średni wynik
+  </span> -->
+</div>
+<div class="content__history">
+  <h2 class="content__history__title">
+    <i class="ri-history-line"></i>
+    Ostatnie wyniki:
+  </h2>
+  <div class="content__history__results">
+    <ng-container *ngIf="data$ | async as data">
+      <ng-container *ngFor="let result of data | slice:0:3; let i = index;">
+        <div class="results__group">
+          <app-progress-circle [progress]="result.score / result.max_score"></app-progress-circle>
+          <div class="results__values">
+            <span class="values__percentage">
+              {{ result.score / result.max_score | percent }}
+            </span>
+            <span class="values__numbers">
+              {{ result.score + ' / ' + result.max_score }}
+            </span>
+          </div>
+          <h3 class="results__category">{{ categories[result.value.category] }}</h3>
+        </div>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

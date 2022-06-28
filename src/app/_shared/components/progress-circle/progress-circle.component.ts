@@ -21,12 +21,15 @@ export class ProgressCircleComponent implements AfterViewInit {
     const value = this.progress;
 
     const property = 'stroke-dashoffset';
+    this.circle.nativeElement.style.setProperty(`${property}`, '75');
     const progressValue = this.computeProgressValue(value);
 
-    this.circle.nativeElement.style.setProperty(
-      `${property}`,
-      progressValue.toString()
-    );
+    setTimeout(() => {
+      this.circle.nativeElement.style.setProperty(
+        `${property}`,
+        progressValue.toString()
+      );
+    }, 100);
   }
 
   computeProgressValue(val: number) {
