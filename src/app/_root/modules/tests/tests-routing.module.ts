@@ -1,17 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ResultsComponent } from './_smart-components/results/results.component';
+import { TestFormComponent } from './_smart-components/test-form/test-form.component';
 
 const routes: Routes = [
   {
-    path: 'results',
-    pathMatch: 'full',
-    component: ResultsComponent,
-  },
-  {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'results',
+    component: TestFormComponent,
   },
 ];
 
@@ -19,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   providers: [RouterModule],
 })
-export class UserRoutingModule {}
+export class TestsRoutingModule {}

@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import {
   MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
@@ -13,6 +15,8 @@ const MATERIAL_ELEMENTS: any[] = [
   MatSnackBarModule,
   MatButtonModule,
   MatInputModule,
+  MatRadioModule,
+  MatCheckboxModule,
 ];
 
 @NgModule({
@@ -23,6 +27,7 @@ const MATERIAL_ELEMENTS: any[] = [
     ...SHARED_COMPS,
     ReactiveFormsModule,
     CommonModule,
+    FormsModule,
   ],
   providers: [
     {

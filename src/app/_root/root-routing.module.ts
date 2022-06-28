@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../_core/guards/auth.guard';
 import { LoggedInGuard } from '../_core/guards/logged-in.guard';
 import { NotFoundComponent } from './components/_dumb-components/not-found/not-found.component';
-import { ContainerComponent } from './components/_smart-components/container/container.component';
+import { ContainerComponent } from './components/_dumb-components/container/container.component';
 
 const routes: Routes = [
   {
@@ -30,6 +30,11 @@ const routes: Routes = [
         path: 'user',
         loadChildren: () =>
           import('./modules/user/user.module').then((m) => m.UserModule),
+      },
+      {
+        path: 'tests',
+        loadChildren: () =>
+          import('./modules/tests/tests.module').then((m) => m.TestsModule),
       },
       {
         path: 'not-found',

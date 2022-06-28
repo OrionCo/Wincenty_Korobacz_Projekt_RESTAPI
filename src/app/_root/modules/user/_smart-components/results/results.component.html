@@ -1,0 +1,28 @@
+<h1>Moje wyniki</h1>
+<section class="results">
+  <div
+    class="results__category"
+    *ngFor="let category of categories | keyvalue"
+  >
+    <h2>{{ category.value }}</h2>
+    <ng-container *ngIf="data$ | async as data">
+      <ng-container *ngFor="let result of data">
+        <div
+          class="results__group"
+          *ngIf="result.value.category === category.key"
+        >
+          <app-progress-circle [progress]="result.score / result.max_score"></app-progress-circle>
+          <div class="results__values">
+            <span class="values__percentage">
+              {{ result.score / result.max_score | percent }}
+            </span>
+            <span class="values__numbers">
+              {{ result.score + ' / ' + result.max_score }}
+            </span>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+  </div>
+</section>

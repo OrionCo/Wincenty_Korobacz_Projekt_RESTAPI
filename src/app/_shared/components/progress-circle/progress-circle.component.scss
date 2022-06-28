@@ -1,0 +1,52 @@
+@import '/src/assets/helpers/consts';
+
+
+.container {
+  margin: auto;
+  width: 200px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-content: stretch;
+  align-items: center;
+}
+
+svg {
+  filter: drop-shadow(0 0 5px rgb(0 0 0 / 0.4));
+}
+
+.circle-container {
+  width: 150px;
+  height: 150px;
+  transform: rotate(-225deg);
+  fill: none;
+  stroke: white;
+  stroke-dasharray: 75 100;
+  stroke-linecap: round;
+}
+
+.circle-container__background {
+  fill: none;
+  stroke: rgb(240, 240, 240);
+  stroke-width: 2px;
+  stroke-dasharray: 75 100;
+  stroke-linecap: round;
+}
+
+.circle-container__progress {
+  fill: none;
+  stroke: url(#gradient);
+  stroke-dasharray: 75 100;
+  stroke-linecap: round;
+  stroke-width: 2px;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+.stop1 {
+  stop-color: map-get($colors, accent);
+}
+
+.stop2 {
+  stop-color: map-get($colors, accent);
+}

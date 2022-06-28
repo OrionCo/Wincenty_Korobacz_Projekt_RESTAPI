@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
     const validPassword = await bcrypt.compare(body.password, user.password);
     if (validPassword) {
       res.header("Access-Control-Allow-Origin");
-      res.status(200).json({ message: "Hasło poprawne." });
+      res.status(200).json({ email: body.email });
     } else {
       res.status(401).json({ message: "Hasło niepoprawne." });
     }

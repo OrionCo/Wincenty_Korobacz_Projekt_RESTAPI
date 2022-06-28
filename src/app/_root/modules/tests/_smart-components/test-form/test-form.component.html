@@ -1,0 +1,40 @@
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()"
+>
+  <mat-radio-group
+    (change)="getTest($event.value)"
+    formControlName="category"
+  >
+    <div class="container">
+      <ng-container *ngFor="let category of categories">
+        <mat-radio-button [value]="category.value">{{ category.name }}</mat-radio-button>
+      </ng-container>
+    </div>
+  </mat-radio-group>
+
+  <ng-container *ngIf="data">
+    <div
+      class="question"
+      formArrayName="questions"
+      *ngFor="let question of getFormArray('questions').controls; let i = index"
+    >
+      <ng-container [formGroupName]="i">
+        <h3>{{ question.value.name }}</h3>
+
+        <mat-radio-group formControlName="answers">
+          <mat-radio-button
+            *ngFor="let answer of questions[i]?.answers"
+            [value]="answer"
+          >{{ answer.name }}</mat-radio-button>
+        </mat-radio-group>
+      </ng-container>
+    </div>
+
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+    >Submit</button>
+  </ng-container>
+</form>
