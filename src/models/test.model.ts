@@ -31,9 +31,9 @@ export namespace Test {
   }
 
   export const CategoriesNames: { [key in Categories]: string } = {
-    TEST_CAT: 'Kategoria testowa nr 1',
-    TEST_CAT2: 'Kategoria testowa nr 2',
-    TEST_CAT3: 'Kategoria testowa nr 3',
+    TEST_CAT: 'Historia Polski w czasach średniowiecza',
+    TEST_CAT2: 'Polska historia współczesna',
+    TEST_CAT3: 'Historia Polski w czasach II WŚ',
   };
 
   export const CategoryOptions: FormModel.CategoryOption[] = [
