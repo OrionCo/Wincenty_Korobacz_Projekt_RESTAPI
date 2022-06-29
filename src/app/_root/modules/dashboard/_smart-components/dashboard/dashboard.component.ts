@@ -39,12 +39,14 @@ export class DashboardComponent {
     // calculate average user score
     // obliczenie średniego wyniku testów użytkownika
     this.data$?.subscribe((data) => {
-      this._data = data;
-      this._data.forEach((result) => {
-        this.average_score += result.score / result.max_score;
-      });
-      this.average_score /= this._data.length;
-      this._cdr.markForCheck();
+      if (data.length) {
+        this._data = data;
+        this._data.forEach((result) => {
+          this.average_score += result.score / result.max_score;
+        });
+        this.average_score /= this._data.length;
+        this._cdr.markForCheck();
+      }
     });
   }
 }
