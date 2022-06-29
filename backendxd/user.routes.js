@@ -3,8 +3,14 @@ const router = express.Router();
 const Result = require("./result.model");
 const User = require("./user.model");
 
+// ścieżka do pobrania wyników użytkownika
+// get user test results
+
 router.get("/results/:email", async (req, res) => {
   try {
+    // znajdujemy wyniki po mailu użytkownika
+    // find results by user email
+
     let results = await Result.find({
       email: req.params.email,
     });
@@ -16,7 +22,8 @@ router.get("/results/:email", async (req, res) => {
   }
 });
 
-// get users by email
+// pobieranie danych użytkownika - wyszukiwamy użytkownika po mailu
+// get user data by email
 
 router.get("/user/:email", (req, res) => {
   User.find({ email: req.params.email }, (err, data) => {

@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  OnInit,
 } from '@angular/core';
 import { Observable, take } from 'rxjs';
 import { AuthService } from 'src/app/_core/services/auth.service';
@@ -29,11 +28,16 @@ export class DashboardComponent {
     private readonly _testsService: TestsService,
     private readonly _cdr: ChangeDetectorRef
   ) {
+    // get user data and results
+    // pobieranie danych użytkownika i jego wyników
+
     this._authService.loggedUser$.pipe(take(1)).subscribe((user) => {
       this._user = user;
       this.data$ = this._testsService.getResults(this._user?.email!);
     });
 
+    // calculate average user score
+    // obliczenie średniego wyniku testów użytkownika
     this.data$?.subscribe((data) => {
       this._data = data;
       this._data.forEach((result) => {

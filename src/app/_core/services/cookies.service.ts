@@ -2,6 +2,12 @@ import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import Cookie, { CookieGetOptions, CookieSetOptions } from 'universal-cookie';
 
+/*
+ * Cookie service facilitates getting and setting cookies.
+ *
+ * Cookie service ułatwia pobieranie i ustawianie ciasteczek.
+ */
+
 @Injectable()
 export class CookiesService {
   private _serverCookies!: Cookie;

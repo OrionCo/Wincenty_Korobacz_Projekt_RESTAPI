@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+// test results model
+// model wyników testu
+
 const resultSchema = new mongoose.Schema({
   email: String,
   score: Number,

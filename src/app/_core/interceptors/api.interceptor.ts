@@ -8,6 +8,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+/*
+ * Intercept requests and set
+ * the correct request headers and request URL to the API.
+ *
+ * Interceptor przechwytuje requesty
+ * do API i ustawia jego poprawny adres
+ * URL. (dzięki temu nie trzeba za każdym
+ * razem pisać całego URL, np:
+ * http://api.url:port/sciezka-do-endpointu,
+ * wystarczy sama nazwa endpointu).
+ */
+
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
   intercept(

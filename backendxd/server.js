@@ -1,3 +1,6 @@
+// this file contains the API configuration
+// w tym pliku zawarta jest cała konfiguracja API
+
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -9,6 +12,9 @@ const userRoutes = require("./user.routes");
 const port = 3000;
 app.use(cors());
 app.use(express.json());
+
+// connect to database
+// połączenie z bazą danych
 
 mongoose
   .connect(process.env.DB_URI, {
@@ -25,5 +31,3 @@ mongoose
     });
   })
   .catch(console.error);
-
-// app.use("/user", userRoutes);

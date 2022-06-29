@@ -20,6 +20,8 @@ export abstract class AbstractControlComponent<T>
 
   value!: T;
 
+  // control properties getters
+
   get disabled(): boolean {
     return this.formControl.disabled || this.isReadonly;
   }

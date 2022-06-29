@@ -29,6 +29,9 @@ export class TestFormComponent extends AbstractFormComponent implements OnInit {
     _fb: FormBuilder
   ) {
     super(_fb);
+    // init test form
+    // inicjalizacja formularza testu
+
     this.formGroup = this._fb.group({
       category: [],
       questions: this._fb.array([]),
@@ -36,10 +39,17 @@ export class TestFormComponent extends AbstractFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // get user data
+    // pobranie danych użytkownika
+
     this._authService.loggedUser$.pipe(take(1)).subscribe((user) => {
       this._user = user;
     });
   }
+
+  // get test data and add question/answer form controls
+  // pobranie danych testu i dodanie kontrolek formularza
+  // odpowiadających za pytania i odpowiedzi
 
   getTest(category: number) {
     this._testsService
@@ -79,6 +89,10 @@ export class TestFormComponent extends AbstractFormComponent implements OnInit {
     });
   }
 
+  // on submit add all correct answers to array
+  // przy wysłaniu formularza dodaj wszystkie
+  // poprawne odpowiedzi do tablicy
+
   onSubmit(): void {
     const val = this.formGroup.getRawValue();
     this.questions.forEach((question) => {
@@ -88,11 +102,18 @@ export class TestFormComponent extends AbstractFormComponent implements OnInit {
         }
       });
     });
+
+    // count score
+    // obliczanie wyniku
+
     let score = 0;
 
     val.questions.forEach((question: any, index: number) => {
       if (question.answers === this.correctAnswers[index]) score++;
     });
+
+    // prepare request payload
+    // przygotowanie zawartości requestu
 
     const results: Test.Results = {
       email: this._user?.email!,

@@ -1,7 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Test } from 'src/models/test.model';
+
+/*
+ * Tests service gets and sends all test-related data.
+ *
+ * Tests service pobiera i wysyła wszystkie dane związane z testami.
+ */
 
 @Injectable()
 export class TestsService {

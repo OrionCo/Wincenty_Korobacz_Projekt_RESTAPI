@@ -3,6 +3,9 @@ const Test = require("./test.model");
 const Result = require("./result.model");
 const router = express.Router();
 
+// get test by category
+// ścieżka do danych testu, który jest wybierany po kategorii
+
 router.get("/:category", async (req, res) => {
   try {
     let test = await Test.findOne({ category: req.params.category });

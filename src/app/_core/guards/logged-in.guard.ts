@@ -8,6 +8,16 @@ import {
 import { map, Observable, take } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
+/*
+ * LoggedInGuard prevents user
+ * from accessing the register/login pages
+ * when they are already logged in.
+ *
+ * LoggedInGuard przekierowuje użytkownika
+ * do strony głównej, jeśli jest on już zalogowany
+ *
+ */
+
 @Injectable()
 export class LoggedInGuard implements CanActivate {
   constructor(

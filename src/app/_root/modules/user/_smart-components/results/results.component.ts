@@ -19,6 +19,9 @@ export class ResultsComponent implements OnInit {
     private readonly _testsService: TestsService,
     private readonly _authService: AuthService
   ) {
+    // get user and results data
+    // pobranie danych użytkownika i jego wyników
+
     this._authService.loggedUser$.pipe(take(1)).subscribe((user) => {
       this._user = user;
       this.data$ = this._testsService.getResults(this._user?.email!);

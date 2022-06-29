@@ -7,6 +7,16 @@ import { AuthModel } from 'src/models/auth.model';
 import { UserModel } from 'src/models/user.model';
 import { CookiesService } from './cookies.service';
 
+/*
+ * Auth service handles all business logic regarding the user.
+ * Stores the user subject/observable and handles the
+ * login/register/logout processes.
+ *
+ * Auth service zawiera całą logikę biznesową odnoszącą się
+ * do użytkownika. Jest odpowiedzialny za przechowywanie
+ * danych użytkownika i procesy logowania/rejestracji/wylogowania.
+ */
+
 @Injectable()
 export class AuthService {
   private _loggedInSubject: BehaviorSubject<boolean> =
@@ -23,6 +33,12 @@ export class AuthService {
     private readonly _snackbar: MatSnackBar,
     private readonly _cookieService: CookiesService
   ) {
+    // Get loggedin cookie - if it exists and is set to true,
+    // set the loggedin subject to true.
+    //
+    // Pobieranie ciasteczka loggedin - jeśli istnieje i ma wartość
+    // true, ustawia wartość loggedin subjecta na true.
+
     let loggedIn = this._cookieService.get('loggedIn');
     if (loggedIn === 'true') {
       this._loggedInSubject.next(true);
@@ -38,6 +54,16 @@ export class AuthService {
   }
 
   // TODO: JWT auth
+
+  /*
+   * Log in process - set the loggedin subject to true, set
+   * the cookie to true, and save the user email in a cookie as well.
+   * Then redirect user to dashboard.
+   *
+   * Proces logowania - ustawia ciasteczko i subject loggedin jako true,
+   * i zapisuje mail użytkownika w ciasteczku. Później
+   * przekierowuje użytkownika do strony głównej
+   */
 
   logIn(data: AuthModel.LoginRequest): void {
     this._http
@@ -65,6 +91,14 @@ export class AuthService {
       });
   }
 
+  /*
+   * Log out process - mirror all actions in the login process
+   * and redirect user to the login page.
+   *
+   * Proces wylogowywania - odwrotny do procesu logowania.
+   * Następnie przekierowuje do strony logowania.
+   */
+
   logOut(): void {
     this._loggedInSubject.next(false);
     this._cookieService.set('loggedIn', 'false');
@@ -76,6 +110,15 @@ export class AuthService {
       panelClass: ['mat-toolbar', 'mat-success'],
     });
   }
+
+  /*
+   * Registration process - send data to the signup endpoint
+   * and redirect user to the login page on success.
+   *
+   * Proces rejestracji - wysyłka danych na odpowiedni endpoint
+   * i przekierowanie użytkownika do strony logowania w przypadku
+   * powodzenia.
+   */
 
   register(data: AuthModel.RegisterRequest): void {
     this._http
