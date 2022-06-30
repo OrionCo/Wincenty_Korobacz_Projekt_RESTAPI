@@ -15,7 +15,9 @@ In order to set up the project locally, you need to install NodeJS on your compu
 ### [Download NodeJS](https://nodejs.org/en/download/)
 
 <br />
-Install dependencies via `npm install`. Configure the API by inserting the password to the database in the .env file (insert it instead of `<PASSWORD>`). The password has been provided to you in a separate text file.
+
+Install dependencies via `npm install`. Configure the API by inserting the password to the database in the `.env.example` file (insert it instead of `<PASSWORD>`) and rename the file to `.env`. The password has been provided to you in a separate text file.
+
 <br />
 <br />
 
@@ -62,7 +64,7 @@ Aby zainstalować projekt lokalnie, należy zainstalować NodeJS na swoim komput
 
 ### [Pobierz NodeJS](https://nodejs.org/en/download/)
 
-Po instalacji NodeJS należy zainstalować wszystkie paczki wymagane do funkcjonowania projektu. W tym celu należy otworzyć terminal w folderze głównym projektu i uruchomić komendę `npm install`. Jeżeli komenda npm nie jest wyszukiwana, należy dodać NodeJS do zmiennej PATH systemu operacyjnego. API należy skonfigurować poprzez wklejenie hasła do bazy danych w pliku .env, który znajduje się w folderze głównym projektu. Wkleić hasło należy w miejsce `<PASSWORD>`.
+Po instalacji NodeJS należy zainstalować wszystkie paczki wymagane do funkcjonowania projektu. W tym celu należy otworzyć terminal w folderze głównym projektu i uruchomić komendę `npm install`. Jeżeli komenda npm nie jest wyszukiwana, należy dodać NodeJS do zmiennej PATH systemu operacyjnego. API należy skonfigurować poprzez wklejenie hasła do bazy danych w pliku `.env.example`, który znajduje się w folderze głównym projektu. Wkleić hasło należy w miejsce `<PASSWORD>`. Następnie należy zmienić nazwę tego pliku na `.env`.
 <br />
 <br />
 
