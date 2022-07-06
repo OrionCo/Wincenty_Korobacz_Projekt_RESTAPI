@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
 } from '@angular/core';
-import { Observable, take } from 'rxjs';
+import { map, Observable, take } from 'rxjs';
 import { AuthService } from 'src/app/_core/services/auth.service';
 import { TestService } from 'src/app/_core/services/tests.service';
 import { Test } from 'src/models/test.model';
@@ -21,7 +21,6 @@ export class DashboardComponent {
   data$?: Observable<Test.Results[]>;
   _data?: Test.Results[];
   average_score: number = 0;
-  categories = Test.CategoriesNames;
 
   constructor(
     private readonly _authService: AuthService,
@@ -33,7 +32,17 @@ export class DashboardComponent {
 
     this._authService.loggedUser$.pipe(take(1)).subscribe((user) => {
       this._user = user;
-      this.data$ = this._testsService.getResults(this._user?.email!);
+      this.data$ = this._testsService.getResults(this._user?.email!).pipe(
+        map((items) => {
+          let res = [];
+          let j = 0;
+          for (let i = items.length - 1; i >= 0; i--) {
+            res[i] = items[j];
+            j++;
+          }
+          return res;
+        })
+      );
     });
 
     // calculate average user score
