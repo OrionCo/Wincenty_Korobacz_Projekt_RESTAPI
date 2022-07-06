@@ -2,9 +2,10 @@
 @import "/src/assets/helpers/mixins/div-shadow.scss";
 
 .container {
-  margin: 40px 100px 40px;
-  padding: 40px 60px;
+  margin: 40px auto 40px;
+  padding: 40px;
   position: relative;
+  max-width: 1360px;
 
   @include divShadow;
 }

@@ -1,0 +1,93 @@
+<a
+  [routerLink]="editMode ? ['../..'] : ['..']"
+  mat-raised-button
+  color="primary"
+>Wróć</a>
+<h1 class="header">
+  <i class="ri-article-line"></i>
+  <span>Nowy test</span>
+</h1>
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="onSubmit()"
+  class="form"
+>
+  <mat-form-field
+    appearance="fill"
+    class="form__name"
+  >
+    <mat-label>Nazwa testu</mat-label>
+    <input
+      matInput
+      formControlName="category"
+    />
+  </mat-form-field>
+  <div
+    class="question"
+    formArrayName="questions"
+    *ngFor="let question of getFormArray('questions').controls; let i = index"
+  >
+    <ng-container [formGroupName]="i">
+      <div class="question__name">
+        <span>{{ i + 1 }}.</span>
+        <mat-form-field class="form__input">
+          <mat-label>
+            Pytanie...?
+          </mat-label>
+          <input
+            matInput
+            formControlName="name"
+          />
+        </mat-form-field>
+      </div>
+
+      <ng-container *ngIf="getAnswersFormArray(i)">
+        <div
+          class="answer"
+          formArrayName="answers"
+          *ngFor="let answer of getAnswersFormArray(i).controls; let j = index"
+        >
+          <ng-container [formGroupName]="j">
+            <mat-checkbox
+              name="{{ i }}"
+              [formControl]="getCorrectControl(i, j)"
+            ></mat-checkbox>
+            <mat-form-field>
+              <mat-label>Odpowiedź {{ j + 1 }}...</mat-label>
+              <input
+                matInput
+                formControlName="name"
+              />
+            </mat-form-field>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <button
+        class="button--add-answer"
+        type="button"
+        mat-raised-button
+        (click)="addAnswersFormGroup(i)"
+        color="accent"
+      >
+        <i class="ri-add-box-line"></i>
+        Dodaj odpowiedź
+      </button>
+    </ng-container>
+  </div>
+  <button
+    class="button--add-question"
+    type="button"
+    mat-raised-button
+    (click)="addQuestionFormGroup()"
+  >
+    <i class="ri-add-box-line"></i>
+    Dodaj kolejne pytanie
+  </button>
+
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+  >Zapisz</button>
+</form>

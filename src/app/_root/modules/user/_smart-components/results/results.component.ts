@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, take } from 'rxjs';
+import { filter, map, Observable, take } from 'rxjs';
 import { AuthService } from 'src/app/_core/services/auth.service';
-import { TestsService } from 'src/app/_core/services/tests.service';
+import { TestService } from 'src/app/_core/services/tests.service';
 import { Test } from 'src/models/test.model';
 import { UserModel } from 'src/models/user.model';
 
@@ -13,10 +13,14 @@ import { UserModel } from 'src/models/user.model';
 export class ResultsComponent implements OnInit {
   data$!: Observable<Test.Results[]>;
   private _user: UserModel.User | null = null;
-  categories = Test.CategoriesNames;
+  categories = this._testService.getCategories().pipe(
+    map((categories) => {
+      return categories.filter((val) => val !== null);
+    })
+  );
 
   constructor(
-    private readonly _testsService: TestsService,
+    private readonly _testService: TestService,
     private readonly _authService: AuthService
   ) {
     // get user and results data
@@ -24,7 +28,7 @@ export class ResultsComponent implements OnInit {
 
     this._authService.loggedUser$.pipe(take(1)).subscribe((user) => {
       this._user = user;
-      this.data$ = this._testsService.getResults(this._user?.email!);
+      this.data$ = this._testService.getResults(this._user?.email!);
     });
   }
 

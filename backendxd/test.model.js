@@ -11,7 +11,6 @@ const testSchema = new mongoose.Schema({
       answers: [
         {
           name: String,
-          value: Number,
           correct: Boolean,
         },
       ],

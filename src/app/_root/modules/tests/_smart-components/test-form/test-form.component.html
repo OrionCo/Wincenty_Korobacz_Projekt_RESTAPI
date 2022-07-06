@@ -2,42 +2,47 @@
   [formGroup]="formGroup"
   (ngSubmit)="onSubmit()"
 >
-  <mat-radio-group
-    (change)="getTest($event.value)"
-    formControlName="category"
-    class="category__select"
-  >
-    <div class="container">
-      <h1 class="container__title">Wybór kategorii testu:</h1>
-      <ng-container *ngFor="let category of categories">
-        <mat-radio-button [value]="category.value">{{ category.name }}</mat-radio-button>
-      </ng-container>
-    </div>
-  </mat-radio-group>
-
   <ng-container *ngIf="data">
-    <div
-      class="question"
-      formArrayName="questions"
-      *ngFor="let question of getFormArray('questions').controls; let i = index"
-    >
-      <ng-container [formGroupName]="i">
-        <h3 class="question__name"><span class="question__name--number">{{ i + 1 }}</span>{{ '. ' + question.value.name
-          }}</h3>
-
-        <mat-radio-group formControlName="answers">
-          <mat-radio-button
-            *ngFor="let answer of questions[i]?.answers"
-            [value]="answer"
-          >{{ answer.name }}</mat-radio-button>
-        </mat-radio-group>
-      </ng-container>
+    <div class="container">
+      <h1 class="container__title">
+        <i class="ri-a-b"></i>
+        <span class="container__title__name">{{ data.category }}</span>
+      </h1>
     </div>
+    <div class="test">
+      <div
+        class="question"
+        formArrayName="questions"
+        *ngFor="let question of getFormArray('questions').controls; let i = index"
+      >
+        <ng-container [formGroupName]="i">
+          <h3 class="question__name">
+            <span class="question__name--number">{{ i + 1 }}</span>
+            {{ '. ' + question.value.name }}
+          </h3>
+          <div
+            class="checkbox-group"
+            formGroupName="answer"
+          >
+            <mat-checkbox
+              *ngFor="let answer of questions[i]?.answers"
+              formControlName="correct"
+              [value]="answer.name"
+              (change)="logValue($event, i)"
+            >
+              {{ answer.name }}
+            </mat-checkbox>
+          </div>
+        </ng-container>
+      </div>
 
-    <button
-      type="submit"
-      mat-raised-button
-      color="primary"
-    >Zapisz odpowiedzi</button>
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+      >
+        Zapisz odpowiedzi
+      </button>
+    </div>
   </ng-container>
 </form>

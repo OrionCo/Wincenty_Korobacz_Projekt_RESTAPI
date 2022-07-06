@@ -5,6 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import {
   MatSnackBarModule,
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
@@ -17,6 +19,8 @@ const MATERIAL_ELEMENTS: any[] = [
   MatInputModule,
   MatRadioModule,
   MatCheckboxModule,
+  MatProgressSpinnerModule,
+  MatTooltipModule,
 ];
 
 @NgModule({

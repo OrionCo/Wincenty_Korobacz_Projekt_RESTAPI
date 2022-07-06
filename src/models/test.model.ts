@@ -9,7 +9,6 @@ export namespace Test {
         answers: [
           {
             name: string;
-            value: number;
             correct: boolean;
           }
         ];
@@ -28,12 +27,14 @@ export namespace Test {
     TEST_CAT = 'TEST_CAT',
     TEST_CAT2 = 'TEST_CAT2',
     TEST_CAT3 = 'TEST_CAT3',
+    TEST_CAT4 = 'TEST_CAT4',
   }
 
   export const CategoriesNames: { [key in Categories]: string } = {
     TEST_CAT: 'Historia Polski w czasach średniowiecza',
     TEST_CAT2: 'Polska historia współczesna',
     TEST_CAT3: 'Historia Polski w czasach II WŚ',
+    TEST_CAT4: 'Testowy test',
   };
 
   export const CategoryOptions: FormModel.CategoryOption[] = [
@@ -48,6 +49,10 @@ export namespace Test {
     {
       name: CategoriesNames[Categories.TEST_CAT3],
       value: Categories.TEST_CAT3,
+    },
+    {
+      name: CategoriesNames[Categories.TEST_CAT4],
+      value: Categories.TEST_CAT4,
     },
   ];
 }

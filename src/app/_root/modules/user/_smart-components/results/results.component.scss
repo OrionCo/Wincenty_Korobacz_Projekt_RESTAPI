@@ -1,14 +1,36 @@
 @import '/src/assets/helpers/consts';
 
 .results {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+  gap: 20px;
+  
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+  }
 
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  
   &__category,
   &__values {
     display: flex;
     flex-direction: column;
+  }
+  
+  &__category {
+    padding: 40px 0;
+  }
+
+  &__category:nth-of-type(even) {
+    background-color: map-get($colors, lightbg);
+    border-radius: 10px;
   }
 
   &__values {
@@ -32,7 +54,11 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-bottom: 50px;
+
+    &::ng-deep .circle-container {
+      width: 150px;
+      height: 150px;
+    }
   }
 
   .values {

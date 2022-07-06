@@ -1,15 +1,21 @@
-<h1>Moje wyniki</h1>
+<h1 class="results__title">
+  <i class="ri-bar-chart-box-line"></i>
+  <span>Moje wyniki</span>
+</h1>
 <section class="results">
   <div
     class="results__category"
-    *ngFor="let category of categories | keyvalue"
+    *ngFor="let category of categories | async"
   >
-    <h2>{{ category.value }}</h2>
-    <ng-container *ngIf="data$ | async as data">
-      <ng-container *ngFor="let result of data">
+    <h2>{{ category }}</h2>
+    <div
+      *ngIf="data$ | async as data"
+      class="results__container"
+    >
+      <ng-container *ngFor="let result of data ">
         <div
           class="results__group"
-          *ngIf="result.value.category === category.key"
+          *ngIf="result.value.category === category"
         >
           <app-progress-circle [progress]="result.score / result.max_score"></app-progress-circle>
           <div class="results__values">
@@ -22,7 +28,7 @@
           </div>
         </div>
       </ng-container>
-    </ng-container>
+    </div>
 
   </div>
 </section>

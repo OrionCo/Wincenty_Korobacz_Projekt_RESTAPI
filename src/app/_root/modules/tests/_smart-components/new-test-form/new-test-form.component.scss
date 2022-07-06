@@ -1,0 +1,41 @@
+@import '/src/assets/helpers/consts';
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 40px 0;
+}
+
+.form {
+  &__name,
+  &__input {
+    width: 350px;
+  }
+
+  .question {
+    margin-left: 10px;
+
+    &__name,
+    .answer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+  }
+
+  .button {
+    &--add-question {
+      margin-left: 20px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    &--add-answer {
+      margin-left: 30px;
+      margin-bottom: 20px;
+      display: block;
+    }
+  }
+}

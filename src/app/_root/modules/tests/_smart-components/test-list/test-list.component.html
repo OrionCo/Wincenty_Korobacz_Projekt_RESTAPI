@@ -1,0 +1,98 @@
+<h1 class="list-title">
+  <i class="ri-article-line"></i>
+  Lista testów
+</h1>
+<div class="top">
+  <a
+    class="create__button"
+    routerLink="./new"
+    mat-raised-button
+    color="primary"
+  >
+    <i class="ri-add-box-line"></i>
+    <span>Utwórz nowy test</span>
+  </a>
+  <form
+    (ngSubmit)="search()"
+    class="search"
+    [formGroup]="formGroup"
+  >
+    <mat-form-field>
+      <mat-label class="search__label">
+        <i class="ri-search-line"></i>
+        Nazwa kategorii
+      </mat-label>
+      <input
+        matInput
+        formControlName="search"
+      />
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="accent"
+      class="search__button"
+      [disabled]="formGroup.invalid"
+    >Szukaj</button>
+    <button
+      type="button"
+      (click)="clearSearch()"
+      mat-raised-button
+      class="search__button"
+    >Wyczyść</button>
+  </form>
+</div>
+<ng-container *ngIf="data$ | async as testList; else loading">
+  <ng-container *ngIf="testList.length; else notFound">
+    <div class="list-header">
+      <p class="list-header__title">Nazwa testu</p>
+      <p class="list-header__actions">Akcje</p>
+    </div>
+    <div
+      class="test"
+      *ngFor="let test of testList"
+    >
+      <p class="test__name">{{ test.category }}</p>
+      <div class="test__buttons">
+        <a
+          class="test__button"
+          [routerLink]="['./', test.category]"
+          mat-raised-button
+          color="primary"
+          matTooltip="Rozwiąż test"
+        >
+          <i class="ri-draft-line"></i>
+        </a>
+        <a
+          class="test__button"
+          [routerLink]="['./edit/', test.category]"
+          mat-raised-button
+          color="primary"
+          matTooltip="Edytuj test"
+        >
+          <i class="ri-edit-2-line"></i>
+        </a>
+        <button
+          class="test__button"
+          mat-raised-button
+          color="primary"
+          (click)="deleteHandler(test.category)"
+          matTooltip="Usuń test"
+        >
+          <i class="ri-delete-bin-line"></i>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
+<ng-template #notFound>
+  <div class="not-found">
+    <span class="not-found__text">
+      Żaden test nie spełnił kryteriów wyszukiwania.
+    </span>
+  </div>
+</ng-template>
+<ng-template #loading>
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

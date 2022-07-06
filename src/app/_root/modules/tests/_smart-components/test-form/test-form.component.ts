@@ -1,10 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { take, tap } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, take } from 'rxjs';
 import { AbstractFormComponent } from 'src/app/_core/components/forms/abstract-form.component';
 import { AuthService } from 'src/app/_core/services/auth.service';
-import { TestsService } from 'src/app/_core/services/tests.service';
+import { TestService } from 'src/app/_core/services/tests.service';
 import { FormModel } from 'src/models/form.model';
 import { Test } from 'src/models/test.model';
 import { UserModel } from 'src/models/user.model';
@@ -15,25 +23,29 @@ import { UserModel } from 'src/models/user.model';
   templateUrl: './test-form.component.html',
 })
 export class TestFormComponent extends AbstractFormComponent implements OnInit {
-  categories: FormModel.CategoryOption[] = Test.CategoryOptions;
   questions: any[] = [];
   correctAnswers: any[] = [];
   givenAnswers: any[] = [];
   _user: UserModel.User | null = null;
+  category: string;
+  data?: Test.TestAnswers;
 
-  data: any;
   constructor(
-    private readonly _testsService: TestsService,
+    private readonly _testService: TestService,
     private readonly _snackBar: MatSnackBar,
     private readonly _authService: AuthService,
+    private readonly _router: Router,
+    private readonly route: ActivatedRoute,
     _fb: FormBuilder
   ) {
     super(_fb);
+    this.category = this.route.snapshot.params['category'];
+    this.getTest(this.category);
+
     // init test form
     // inicjalizacja formularza testu
-
     this.formGroup = this._fb.group({
-      category: [],
+      category: [this.category],
       questions: this._fb.array([]),
     });
   }
@@ -51,8 +63,8 @@ export class TestFormComponent extends AbstractFormComponent implements OnInit {
   // pobranie danych testu i dodanie kontrolek formularza
   // odpowiadających za pytania i odpowiedzi
 
-  getTest(category: number) {
-    this._testsService
+  getTest(category: string) {
+    this._testService
       .getTest(category)
       .pipe(take(1))
       .subscribe({
@@ -85,8 +97,17 @@ export class TestFormComponent extends AbstractFormComponent implements OnInit {
   private addQuestionFormGroup(question: any): FormGroup {
     return this._fb.group({
       name: [question.name],
-      answers: new FormControl(),
+      answer: this._fb.group({
+        name: [null],
+        correct: [false],
+      }),
     });
+  }
+
+  logValue(event: MatCheckboxChange, index: number): void {
+    (
+      this.getFormArray('questions').at(index).get('answer') as FormGroup
+    ).controls['name'].setValue(event.source.value);
   }
 
   // on submit add all correct answers to array
@@ -109,7 +130,9 @@ export class TestFormComponent extends AbstractFormComponent implements OnInit {
     let score = 0;
 
     val.questions.forEach((question: any, index: number) => {
-      if (question.answers === this.correctAnswers[index]) score++;
+      if (question.answer.name === this.correctAnswers[index].name) {
+        score++;
+      }
     });
 
     // prepare request payload
@@ -121,12 +144,13 @@ export class TestFormComponent extends AbstractFormComponent implements OnInit {
       score: score,
       value: val,
     };
-    this._testsService.sendResult(results).subscribe({
+    this._testService.sendResult(results).subscribe({
       next: () => {
         this._snackBar.open('Poprawnie zapisano odpowiedzi.', '', {
           duration: 3000,
           panelClass: ['mat-toolbar', 'mat-success'],
         });
+        this._router.navigate(['/user/results']);
       },
       error: (err) => {
         this._snackBar.open('Wystąpił błąd przy wysyłaniu odpowiedzi.', '', {

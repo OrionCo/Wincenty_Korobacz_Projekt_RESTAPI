@@ -10,11 +10,34 @@ import { Test } from 'src/models/test.model';
  */
 
 @Injectable()
-export class TestsService {
+export class TestService {
   constructor(private readonly _http: HttpClient) {}
 
-  getTest(category: number): Observable<Test.TestAnswers> {
+  getAllTests(): Observable<Test.TestAnswers[]> {
+    return this._http.get<Test.TestAnswers[]>(`test`);
+  }
+
+  getCategories(): Observable<Test.Categories[]> {
+    return this._http.get<Test.Categories[]>(`test/categories`);
+  }
+
+  searchTests(category: string): Observable<Test.TestAnswers[]> {
+    return this._http.get<Test.TestAnswers[]>(`test/search/${category}`);
+  }
+
+  getTest(category: string): Observable<Test.TestAnswers> {
     return this._http.get<Test.TestAnswers>(`test/${category}`);
+  }
+
+  createTest(test: Test.TestAnswers): Observable<Test.TestAnswers> {
+    return this._http.post<Test.TestAnswers>('test/new', test);
+  }
+
+  updateTest(
+    test: Test.TestAnswers,
+    category: string
+  ): Observable<Test.TestAnswers> {
+    return this._http.put<Test.TestAnswers>(`test/edit/${category}`, test);
   }
 
   sendResult(data: Test.Results): Observable<Test.Results> {
@@ -23,5 +46,9 @@ export class TestsService {
 
   getResults(email: string): Observable<Test.Results[]> {
     return this._http.get<Test.Results[]>(`user/results/${email}`);
+  }
+
+  deleteTest(category: string): Observable<unknown> {
+    return this._http.delete<unknown>(`test/${category}`);
   }
 }

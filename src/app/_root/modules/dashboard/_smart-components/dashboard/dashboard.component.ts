@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { Observable, take } from 'rxjs';
 import { AuthService } from 'src/app/_core/services/auth.service';
-import { TestsService } from 'src/app/_core/services/tests.service';
+import { TestService } from 'src/app/_core/services/tests.service';
 import { Test } from 'src/models/test.model';
 import { UserModel } from 'src/models/user.model';
 
@@ -25,7 +25,7 @@ export class DashboardComponent {
 
   constructor(
     private readonly _authService: AuthService,
-    private readonly _testsService: TestsService,
+    private readonly _testsService: TestService,
     private readonly _cdr: ChangeDetectorRef
   ) {
     // get user data and results
