@@ -23,7 +23,7 @@ Install dependencies via `npm install`. Configure the API by inserting the passw
 
 ## Development server
 
-First launch the backend API by running `npm run backend`. Run `npm run start` to run serve the frontend application at `http://localhost:4200`.
+First launch the backend API by running `npm run backend`. Run `npm run start` to serve the frontend application at `http://localhost:4200`.
 <br />
 <br />
 
